@@ -1,26 +1,26 @@
 package com.system.pdv.resources;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.system.pdv.entities.Usersys;
+import com.system.pdv.entities.UserSys;
+import com.system.pdv.services.UserSysService;
 
 @RestController
 @RequestMapping(value = "/users")
 public class UserResource {
-	
-	EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpa"); // Responsável por criar e gerenciar instâncias de EntityManager
-	EntityManager em = emf.createEntityManager(); // realiza operações de CRUD (Create, Read, Update, Delete) no banco de dados
-	
+
+	@Autowired
+	private UserSysService service;
+
 	@GetMapping
-	public ResponseEntity<Usersys> findAll(){
-		Usersys user = em.find(Usersys.class, 2);
-		return ResponseEntity.ok().body(user);
+	public ResponseEntity<List<UserSys>> findAll() {
+		List<UserSys> list = service.findAll();
+		return ResponseEntity.ok().body(list);
 	}
 }

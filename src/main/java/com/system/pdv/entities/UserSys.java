@@ -3,25 +3,27 @@ package com.system.pdv.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-public class Usersys implements Serializable {
+@Table(name ="user_sys")
+public class UserSys implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id 
 	private Integer id;
 	private String email;
-	private String passwordsys;
+	private String password_sys;
 	
-	public Usersys() {
+	public UserSys() {
 	}
 
-	public Usersys(Integer id, String email, String passwordsys) {
+	public UserSys(Integer id, String email, String password_sys) {
 		this.id = id;
 		this.email= email;
-		this.passwordsys = passwordsys;
+		this.password_sys = password_sys;
 	}
 
 	public Integer getId() {
@@ -40,12 +42,12 @@ public class Usersys implements Serializable {
 		this.email = email;
 	}
 	
-	public String getPasswordsys() {
-		return passwordsys;
+	public String getPassword() {
+		return password_sys;
 	}
 
-	public void setPasswordsys(String passwordsys) {
-		this.passwordsys = passwordsys;
+	public void setPassword(String password_sys) {
+		this.password_sys = password_sys;
 	}
 
 	@Override
@@ -61,14 +63,8 @@ public class Usersys implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Usersys other = (Usersys) obj;
+		UserSys other = (UserSys) obj;
 		return Objects.equals(id, other.id);
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", passwordsys=" + passwordsys + "]";
-	}
-
-	
 }
