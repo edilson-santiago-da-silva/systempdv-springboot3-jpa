@@ -1,7 +1,5 @@
 package com.system.pdv.services;
 
-
-
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +14,6 @@ public class UserSysService {
 
 	@Autowired
 	private UserSysRepository repository;
-	
 	
 	public List<UserSys> findAll(){
 		return  repository.findAll();
