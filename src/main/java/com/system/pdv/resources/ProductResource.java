@@ -21,7 +21,7 @@ import com.system.pdv.services.ProductService;
 import jakarta.transaction.Transactional;
 
 @RestController
-@RequestMapping(value = "/Products")
+@RequestMapping(value = "/products")
 public class ProductResource {
 
 	@Autowired
