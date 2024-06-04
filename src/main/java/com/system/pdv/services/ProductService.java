@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.system.pdv.entities.Product;
 import com.system.pdv.repositores.ProductRepository;
+import com.system.pdv.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class ProductService {
@@ -21,7 +22,7 @@ public class ProductService {
 	
 	public Product findById(Integer id) {
 		Optional<Product> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public Product insert(Product obj) {

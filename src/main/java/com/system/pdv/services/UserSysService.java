@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.system.pdv.entities.UserSys;
 import com.system.pdv.repositores.UserSysRepository;
+import com.system.pdv.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class UserSysService {
@@ -21,7 +22,7 @@ public class UserSysService {
 	
 	public UserSys findById(Integer id) {
 		Optional<UserSys> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public UserSys insert(UserSys obj) {

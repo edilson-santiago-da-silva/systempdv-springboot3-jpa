@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.system.pdv.entities.OrderSale;
 import com.system.pdv.repositores.OrderSaleRepository;
+import com.system.pdv.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class OrderSaleService {
@@ -21,7 +22,7 @@ public class OrderSaleService {
 	
 	public OrderSale findById(Integer id) {
 		Optional<OrderSale> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public OrderSale insert(OrderSale obj) {
