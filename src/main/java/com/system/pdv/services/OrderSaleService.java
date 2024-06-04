@@ -10,6 +10,8 @@ import com.system.pdv.entities.OrderSale;
 import com.system.pdv.repositores.OrderSaleRepository;
 import com.system.pdv.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class OrderSaleService {
 
@@ -34,9 +36,13 @@ public class OrderSaleService {
 	}
 	
 	public OrderSale update(Integer id, OrderSale obj) {
-		OrderSale entity = repository.getReferenceById(id);
-		updateData(entity, obj);
-		return repository.save(entity);
+		try { 
+			OrderSale entity = repository.getReferenceById(id);
+			updateData(entity, obj);
+			return repository.save(entity);
+		} catch(EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 
 	private void updateData(OrderSale entity, OrderSale obj) {

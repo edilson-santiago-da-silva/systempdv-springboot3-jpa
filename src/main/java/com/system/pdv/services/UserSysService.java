@@ -10,33 +10,39 @@ import com.system.pdv.entities.UserSys;
 import com.system.pdv.repositores.UserSysRepository;
 import com.system.pdv.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class UserSysService {
 
 	@Autowired
 	private UserSysRepository repository;
-	
-	public List<UserSys> findAll(){
-		return  repository.findAll();
+
+	public List<UserSys> findAll() {
+		return repository.findAll();
 	}
-	
+
 	public UserSys findById(Integer id) {
 		Optional<UserSys> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
-	
+
 	public UserSys insert(UserSys obj) {
 		return repository.save(obj);
 	}
-	
+
 	public void delete(Integer id) {
 		repository.deleteById(id);
 	}
-	
+
 	public UserSys update(Integer id, UserSys obj) {
-		UserSys entity = repository.getReferenceById(id);
-		updateData(entity, obj);
-		return repository.save(entity);
+		try {
+			UserSys entity = repository.getReferenceById(id);
+			updateData(entity, obj);
+			return repository.save(entity);
+		} catch(EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 
 	private void updateData(UserSys entity, UserSys obj) {

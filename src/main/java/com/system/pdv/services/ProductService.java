@@ -10,6 +10,8 @@ import com.system.pdv.entities.Product;
 import com.system.pdv.repositores.ProductRepository;
 import com.system.pdv.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class ProductService {
 
@@ -34,9 +36,13 @@ public class ProductService {
 	}
 	
 	public Product update(Integer id, Product obj) {
-		Product entity = repository.getReferenceById(id);
-		updateData(entity, obj);
-		return repository.save(entity);
+		try {
+			Product entity = repository.getReferenceById(id);
+			updateData(entity, obj);
+			return repository.save(entity);
+		} catch(EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 
 	private void updateData(Product entity, Product obj) {
