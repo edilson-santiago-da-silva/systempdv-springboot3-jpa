@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,12 +22,15 @@ public class OrderSale implements Serializable {
 	
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
+		@Schema(type = "integer", format = "int32", nullable = true, example = "null", description = "Auto-generated ID")
 		private Integer id;
 		private String product;
 		private Double total;
 		private String payment;
 		
-		@Temporal(TemporalType.DATE)
+	    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	    @Temporal(TemporalType.DATE)
+	    @Schema(type = "string", example = "2024-06-05", format = "date")
 		private Date moment;
 		
 		public OrderSale() {
