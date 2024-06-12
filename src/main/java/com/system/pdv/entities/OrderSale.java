@@ -7,6 +7,7 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,8 +23,9 @@ public class OrderSale implements Serializable {
 	
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
-		@Schema(type = "integer", format = "int32", nullable = true, example = "null", description = "Auto-generated ID")
 		private Integer id;
+		
+		@Column(length = 2000)
 		private String product;
 		private Double total;
 		private String payment;
